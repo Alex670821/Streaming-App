@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "djoser",
+    "subscriptions",
+    "fsfs",
     "accounts",
     "social_django",
     "rest_framework_simplejwt",
