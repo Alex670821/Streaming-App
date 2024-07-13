@@ -1,10 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    PermissionsMixin,
-    BaseUserManager,
-)
-
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils import timezone
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -19,11 +15,11 @@ class UserAccountManager(BaseUserManager):
 
         return user
 
-
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -40,3 +36,16 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class UserPoints(models.Model):
+    user = models.OneToOneField(UserAccount, on_delete=models.CASCADE, related_name='points')
+    points = models.IntegerField(default=0)
+    last_login_time = models.DateTimeField(null=True, blank=True)
+
+    def add_points(self, minutes):
+        self.points += minutes * 10
+        self.save()
+
+    def reset_login_time(self):
+        self.last_login_time = timezone.now()
+        self.save()
