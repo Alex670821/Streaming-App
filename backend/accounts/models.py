@@ -1,3 +1,4 @@
+# accounts/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
@@ -37,15 +38,18 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 class UserPoints(models.Model):
     user = models.OneToOneField(UserAccount, on_delete=models.CASCADE, related_name='points')
     points = models.IntegerField(default=0)
     last_login_time = models.DateTimeField(null=True, blank=True)
 
     def add_points(self, minutes):
-        self.points += minutes * 10
+        # Solo actualiza los puntos directamente
+        self.points = minutes * 10
         self.save()
 
     def reset_login_time(self):
         self.last_login_time = timezone.now()
         self.save()
+

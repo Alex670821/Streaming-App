@@ -1,10 +1,11 @@
+# accounts/views.py
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
-from django.utils import timezone
+from django.utils import timezone  # Asegúrate de importar timezone
 from .serializers import UserProfileSerializer, ChangePasswordSerializer, UserPointsSerializer
 from .models import UserPoints
 
@@ -20,12 +21,11 @@ class UserProfileView(APIView):
 
     def put(self, request):
         user = request.user
-        serializer = UserProfileSerializer(user, data=request.data, partial=True)
+        serializer = UserProfileSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
@@ -61,6 +61,8 @@ class UpdateUserPointsView(APIView):
         return Response({'status': 'success', 'points': points_instance.points}, status=status.HTTP_200_OK)
 
 class LogoutAndSavePointsView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         user = request.user
         points_instance = user.points
