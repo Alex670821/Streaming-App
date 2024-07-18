@@ -15,6 +15,7 @@ def get_chat_messages(request, directo_id):
         data = [{"user": message.user.email, "message": message.message, "timestamp": message.timestamp} for message in messages]
         return JsonResponse(data, safe=False)
 
+# chat/views.py
 @csrf_exempt
 def send_chat_message(request):
     if request.method == 'POST':
