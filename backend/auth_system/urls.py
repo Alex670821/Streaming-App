@@ -14,9 +14,10 @@ urlpatterns = [
     path("auth/", include("djoser.urls.jwt")),
     path("auth/", include("djoser.social.urls")),
     path("directos/", include("directos.urls")),
-    path('accounts/', include('accounts.urls')),
-    path('rewards/', include('rewards.urls')),
+    path("accounts/", include("accounts.urls")),
+    path("rewards/", include("rewards.urls")),
     path("chat/", include("chat.urls")),
+    path("api/", include("videos.urls")),
 ]
 
 if settings.DEBUG:

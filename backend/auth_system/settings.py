@@ -18,8 +18,8 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Media settings
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -46,22 +46,23 @@ INSTALLED_APPS = [
     "subscriptions",
     "djoser",
     "accounts",
+    "videos",
     "corsheaders",
     "social_django",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "directos",
     "rewards",
-    'channels',
+    "channels",
     "chat",
 ]
-ASGI_APPLICATION = 'auth_system.asgi.application'
+ASGI_APPLICATION = "auth_system.asgi.application"
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
@@ -154,6 +155,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# Media files configuration
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
