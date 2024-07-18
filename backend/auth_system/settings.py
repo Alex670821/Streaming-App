@@ -52,7 +52,19 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "directos",
     "rewards",
+    'channels',
+    "chat",
 ]
+ASGI_APPLICATION = 'auth_system.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

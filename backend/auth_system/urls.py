@@ -16,6 +16,7 @@ urlpatterns = [
     path("directos/", include("directos.urls")),
     path('accounts/', include('accounts.urls')),
     path('rewards/', include('rewards.urls')),
+    path("chat/", include("chat.urls")),
 ]
 
 if settings.DEBUG:

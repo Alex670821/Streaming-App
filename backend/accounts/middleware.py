@@ -1,8 +1,11 @@
-# accounts/middleware.py
+# backend/accounts/middleware.py
 import time
 from django.utils.deprecation import MiddlewareMixin
 from django.utils import timezone
 from accounts.models import UserPoints
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class UserPointsMiddleware(MiddlewareMixin):
     def process_request(self, request):

@@ -52,4 +52,3 @@ class UserPoints(models.Model):
     def reset_login_time(self):
         self.last_login_time = timezone.now()
         self.save()
-
